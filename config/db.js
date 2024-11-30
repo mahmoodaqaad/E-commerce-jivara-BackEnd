@@ -2,10 +2,11 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-    host: "localhost",
+    host: "dpg-ct5g7nilqhvc73a8on70-a",
     user: "root",
-    password: "",
-    database: "ecommerce-jivara"
+    password: "7sw7CSGDqKSySfsoj8YFj6KSaAv4vMHc",
+    database: "ecommerce_jivara",
+    port: 5432
 });
 
 db.connect((err) => {
