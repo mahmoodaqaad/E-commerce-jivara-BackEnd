@@ -2,11 +2,11 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-    host: "dpg-ct5g7nilqhvc73a8on70-a",
-    user: "root",
-    password: "7sw7CSGDqKSySfsoj8YFj6KSaAv4vMHc",
-    database: "ecommerce_jivara",
-    port: 5432
+    host: process.env.host,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database,
+    port: process.env.port
 });
 
 db.connect((err) => {
