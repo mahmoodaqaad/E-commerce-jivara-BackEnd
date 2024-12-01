@@ -1,7 +1,7 @@
 // controllers/authController.js
 const db = require('../config/db');
 const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
+const bcrypt = require('bcryptjs');
 const salt = 10
 // دالة لتسجيل الدخول
 
@@ -17,7 +17,7 @@ exports.verifyUser = (req, res, next) => {
         return res.status(404).json({ message: "No token provided" });
     }
 
-    jwt.verify(token, 'jwtSecretKey', (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
 
             return res.status(404).json({ message: "Unauthorized", token });
@@ -74,7 +74,7 @@ exports.login = (req, res) => {
                     // new date from login 
                     const newLoginSql = "UPDATE users SET lastLogin= ? WHERE id = ?";
                     db.query(newLoginSql, [DateLogin, id], (err, newdata) => {
-                        const token = jwt.sign({ id, role }, "jwtSecretKey", { expiresIn: expiresInToken })
+                        const token = jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: expiresInToken })
 
                         return res.json({ message: "User Login successfully", status: 200, Login: true, token, data });
 
@@ -140,7 +140,7 @@ exports.register = (req, res) => {
                     }
 
                     const id = result.insertId;
-                    const token = jwt.sign({ id, role }, "jwtSecretKey", { expiresIn: expiresInToken });
+                    const token = jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: expiresInToken });
                     return res.json({ message: "User registered successfully", userId: result.insertId, token, status: 200 });
                 });
 
