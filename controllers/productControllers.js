@@ -22,49 +22,49 @@ exports.upload = multer({
 
 const url = "https://e-commerce-jivara-backend-hl0c.onrender.com/image"
 
-    exports.addProduct = (req, res) => {
+exports.addProduct = (req, res) => {
 
 
-        const images = req.files.map(file => `${url}/${file.filename}`)
+    const images = req.files.map(file => `${url}/${file.filename}`)
 
-        const { category, discrption, price, title, stok } = JSON?.parse(req.body.form)
+    const { category, discrption, price, title, stok } = JSON?.parse(req.body.form)
 
-        // get cate name
-        const cateSql = "SELECT name FROM categories WHERE id = ?"
-        const created = new Date().toLocaleString("en-US", {
-            month: "short",
-            day: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            // hour12: true,  // لتنسيق الساعة بتوقيت 12 ساعة (AM/PM). إذا كنت تفضل توقيت 24 ساعة، يمكنك استخدام false
-        });
+    // get cate name
+    const cateSql = "SELECT name FROM categories WHERE id = ?"
+    const created = new Date().toLocaleString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        // hour12: true,  // لتنسيق الساعة بتوقيت 12 ساعة (AM/PM). إذا كنت تفضل توقيت 24 ساعة، يمكنك استخدام false
+    });
 
-        db.query(cateSql, category, (err, data) => {
-            if (err) return res.status(400).json(err)
+    db.query(cateSql, category, (err, data) => {
+        if (err) return res.status(400).json(err)
 
-            if (data) {
-                const rating = 0
-                const rating_avarage = 0
-                const total_rate_value = 0
-                const category_name = data[0].name
-                const sql = "INSERT INTO products ( title, discrption, price, category_id, category_name, stok , created,rating, rating_avarage, total_rate_value, user_id_rate, user_comments, images ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
+        if (data) {
+            const rating = 0
+            const rating_avarage = 0
+            const total_rate_value = 0
+            const category_name = data[0].name
+            const sql = "INSERT INTO products ( title, discrption, price, category_id, category_name, stok , created,rating, rating_avarage, total_rate_value, user_id_rate, user_comments, images ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
 
-                db.query(sql, [title, discrption, price, category, category_name, stok, created, rating, rating_avarage, total_rate_value, "[]", "[]", JSON.stringify(images)], (err, data) => {
+            db.query(sql, [title, discrption, price, category, category_name, stok, created, rating, rating_avarage, total_rate_value, "[]", "[]", JSON.stringify(images)], (err, data) => {
 
-                    if (err) return res.status(404).json(err)
-                    if (data) res.json({
+                if (err) return res.status(404).json(err)
+                if (data) res.json({
 
 
-                        message: "succes"
-                    })
-
+                    message: "succes"
                 })
-            }
 
-        })
+            })
+        }
 
-    }
+    })
+
+}
 
 
 
