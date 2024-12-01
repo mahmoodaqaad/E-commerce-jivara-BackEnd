@@ -3,7 +3,7 @@ const db = require('../config/db')
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const http = "http://localhost:8081/category/"
+const http = "https://e-commerce-jivara-backend-hl0c.onrender.com/category/"
 
 const storage = multer.diskStorage({
     destination: (req, file, cd) => {

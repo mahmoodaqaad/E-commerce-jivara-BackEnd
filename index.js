@@ -9,8 +9,9 @@ const cookieParser = require('cookie-parser');
 
 app.use(cookieParser());
 app.use(express.static('public'));
-
-const PORT =  8081; // استخدم متغير البيئة PORT إذا كان موجودًا
+app.use('/categories', express.static('public/categories'));
+app.use('/products', express.static('public/products'));
+const PORT = 8081; // استخدم متغير البيئة PORT إذا كان موجودًا
 
 app.use(cors({
     origin: [process.env.CLIENT_URL], // تأكد من صحة عنوان URL

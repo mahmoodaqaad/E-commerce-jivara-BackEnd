@@ -32,9 +32,9 @@ exports.adduser = (req, res) => {
                     });
 
 
-                    const sql = "INSERT INTO users (name , email , password , role , DateCreated,savedProducts) VALUES (? , ? , ? , ? , ?,? )"
+                    const sql = "INSERT INTO users (name , email , password , role , DateCreated,savedProducts) VALUES (? , ? , ? , ? , ? , ? )"
                     db.query(sql, [name, email, hash, role, DateCreated, "[]"], (err, result) => {
-                        if (err) return res.json({ error: err, message: "Error IN data base" })
+                        if (err) return res.status(404).json({ error: err, message: "Error IN data base" })
                         if (result) {
                             return res.json({ message: "add user successfully", status: 200 })
                         }

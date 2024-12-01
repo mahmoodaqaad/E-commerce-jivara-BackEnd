@@ -6,7 +6,7 @@ const salt = 10;
 const expiresInToken = "1d"; // مدة صلاحية التوكن
 
 exports.verifyUser = (req, res, next) => {
-    const token = req.cookies.ecommerce_jivara; // الحصول على التوكن من الكوكيز
+    const token = req.cookies.ecommerce_jivara || req.headers['authorization']?.split(' ')[1];; // الحصول على التوكن من الكوكيز
 
     if (!token) {
         return res.status(401).json({ message: "No token provided" }); // تغيير الكود إلى 401

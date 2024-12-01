@@ -8,7 +8,7 @@ const { all } = require('../routes/userRoutes');
 
 const storage = multer.diskStorage({
     destination: (req, file, cd) => {
-        cd(null, "public/product")
+        cd(null, "public/image")
     }
     ,
     filename: (req, file, cd) => {
@@ -20,51 +20,51 @@ exports.upload = multer({
     storage: storage
 })
 
+const url = "https://e-commerce-jivara-backend-hl0c.onrender.com/image"
+
+    exports.addProduct = (req, res) => {
 
 
-exports.addProduct = (req, res) => {
+        const images = req.files.map(file => `${url}/${file.filename}`)
+
+        const { category, discrption, price, title, stok } = JSON?.parse(req.body.form)
+
+        // get cate name
+        const cateSql = "SELECT name FROM categories WHERE id = ?"
+        const created = new Date().toLocaleString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            // hour12: true,  // لتنسيق الساعة بتوقيت 12 ساعة (AM/PM). إذا كنت تفضل توقيت 24 ساعة، يمكنك استخدام false
+        });
+
+        db.query(cateSql, category, (err, data) => {
+            if (err) return res.status(400).json(err)
+
+            if (data) {
+                const rating = 0
+                const rating_avarage = 0
+                const total_rate_value = 0
+                const category_name = data[0].name
+                const sql = "INSERT INTO products ( title, discrption, price, category_id, category_name, stok , created,rating, rating_avarage, total_rate_value, user_id_rate, user_comments, images ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
+
+                db.query(sql, [title, discrption, price, category, category_name, stok, created, rating, rating_avarage, total_rate_value, "[]", "[]", JSON.stringify(images)], (err, data) => {
+
+                    if (err) return res.status(404).json(err)
+                    if (data) res.json({
 
 
-    const images = req.files.map(file => `http://localhost:8081/product/${file.filename}`)
+                        message: "succes"
+                    })
 
-    const { category, discrption, price, title, stok } = JSON?.parse(req.body.form)
-
-    // get cate name
-    const cateSql = "SELECT name FROM categories WHERE id = ?"
-    const created = new Date().toLocaleString("en-US", {
-        month: "short",
-        day: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        // hour12: true,  // لتنسيق الساعة بتوقيت 12 ساعة (AM/PM). إذا كنت تفضل توقيت 24 ساعة، يمكنك استخدام false
-    });
-
-    db.query(cateSql, category, (err, data) => {
-        if (err) return res.status(400).json(err)
-
-        if (data) {
-            const rating = 0
-            const rating_avarage = 0
-            const total_rate_value = 0
-            const category_name = data[0].name
-            const sql = "INSERT INTO products ( title, discrption, price, category_id, category_name, stok , created,rating, rating_avarage, total_rate_value, user_id_rate, user_comments, images ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
-
-            db.query(sql, [title, discrption, price, category, category_name, stok, created, rating, rating_avarage, total_rate_value, "[]", "[]", JSON.stringify(images)], (err, data) => {
-
-                if (err) return res.status(404).json(err)
-                if (data) res.json({
-
-
-                    message: "succes"
                 })
+            }
 
-            })
-        }
+        })
 
-    })
-
-}
+    }
 
 
 
@@ -117,12 +117,12 @@ exports.deleteProduct = (req, res) => {
         if (err) return res.json("err")
         if (data.length > 0) {
             const images = data.length > 0 ? JSON.parse(data[0].images) : []
-            const newImages = images.map(item => item.replace("http://localhost:8081/product/", ""))
+            const newImages = images.map(item => item.replace(`${url}/`, ""))
             try {
 
                 newImages.map(item => {
 
-                    fs.unlinkSync(path.join(__dirname, '../public/product', item)); // حذف الصورة من المجلد
+                    fs.unlinkSync(path.join(__dirname, '../public/image', item)); // حذف الصورة من المجلد
 
                 })
             } catch (e) {
@@ -170,7 +170,7 @@ exports.deleteImgProduct = (req, res) => {
     const { fullimage, image } = req.body
     try {
 
-        fs.unlinkSync(path.join(__dirname, '../public/product', image)); // حذف الصورة من المجلد
+        fs.unlinkSync(path.join(__dirname, '../public/image', image)); // حذف الصورة من المجلد
     } catch (e) {
 
     }
@@ -206,7 +206,7 @@ exports.EditProduct = (req, res) => {
             const category_name = data[0].name
             if (req.files.length > 0) {
 
-                const newImages = req.files.map(file => `http://localhost:8081/product/${file.filename}`);
+                const newImages = req.files.map(file => `${url}/${file.filename}`);
                 const oldImage = JSON.parse(req.dataProduct[0].images)
 
                 const updateImage = [...oldImage, ...newImages]
