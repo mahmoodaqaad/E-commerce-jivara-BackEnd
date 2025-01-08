@@ -16,19 +16,22 @@ const storage = multer.diskStorage({
     }
 })
 
+
+
 exports.upload = multer({
     storage: storage
 })
 
-const url = "https://e-commerce-jivara-backend-hl0c.onrender.com/image"
+const url = "https://e-commerce-jivara-backend-hl0c.onrender.com/image";
 
 exports.addProduct = (req, res) => {
 
 
-    const images = req.files.map(file => `${url}/${file.filename}`)
+    // const images = req.files.map(file => `${url}/${file.filename}`)
+    const images = req.body.images
 
-    const { category, discrption, price, title, stok } = JSON?.parse(req.body.form)
-
+    const { category, discrption, price, title, stok } = req.body.form
+    // return res.json({ category, discrption, price, title, stok , images })
     // get cate name
     const cateSql = "SELECT name FROM categories WHERE id = ?"
     const created = new Date().toLocaleString("en-US", {
@@ -71,7 +74,7 @@ exports.addProduct = (req, res) => {
 exports.products = (req, res) => {
 
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10000;
+    const limit = parseInt(req.query.limit) || 5;
     const search = req.query.search || "";
     const filter = req.query.filter || "title";
     const order = req.query.order || "ASC";

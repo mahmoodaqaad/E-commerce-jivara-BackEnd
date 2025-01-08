@@ -51,7 +51,8 @@ router.get('/product/latest', productControllers.getLatestProducts)
 router.get('/searchProduct', productControllers.getTileProductSearch)
 
 // add 
-router.post('/product/add', productControllers.upload.array('images', 10), productControllers.addProduct)
+// router.post('/product/add', productControllers.upload.array('images', 10), productControllers.addProduct)
+router.post('/product/add', productControllers.addProduct)
 // edit 
 router.post('/product/edit/:id', productControllers.upload.array('images', 10), productControllers.getOneProduct, productControllers.EditProduct)
 // get all 
@@ -80,7 +81,8 @@ router.post('/product/add-rate/:id', productControllers.getOneProduct, productCo
 
 // catygory
 
-router.post("/category/add", categoryControllers.upload.single("image"), categoryControllers.addCategory)
+// router.post("/category/add", categoryControllers.upload.single("image"), categoryControllers.addCategory)
+router.post("/category/add", categoryControllers.addCategory)
 
 router.post("/category/edit/:id", categoryControllers.getoneCategory, categoryControllers.upload.single("image"), categoryControllers.editCategory)
 

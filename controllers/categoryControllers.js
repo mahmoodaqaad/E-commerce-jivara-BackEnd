@@ -22,7 +22,8 @@ exports.upload = multer({
 
 exports.addCategory = (req, res) => {
 
-    const image = `${http}${req.file.filename}`
+    // const image = `${http}${req.file.filename}`
+    const image = req.body.image
     const { name } = req.body
     const created = new Date().toLocaleString("en-US", {
         month: "short",
