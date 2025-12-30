@@ -1,29 +1,43 @@
-// app.js
 const express = require('express');
 const cors = require("cors");
 require('dotenv').config();
-
-const userRoutes = require('./routes/userRoutes');
-const app = express();
 const cookieParser = require('cookie-parser');
 
-app.use(cookieParser());
-app.use(express.static('public'));
-app.use('/categories', express.static('public/categories'));
-app.use('/products', express.static('public/products'));
-const PORT = 8081; // استخدم متغير البيئة PORT إذا كان موجودًا
- 
-app.use(cors({
-    origin: [process.env.CLIENT_URL], // تأكد من صحة عنوان URL
-    methods: ["POST", "GET", "DELETE", "PATCH"],
-    credentials: true
-}));
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 
+const app = express();
+const PORT = process.env.PORT || 8081;
+
+// Middleware
+app.use(cookieParser());
 app.use(express.json());
 
-app.use(userRoutes); // استخدام طرق المستخدم
+// CORS
+app.use(cors({
+    origin: process.env.CLIENT_URL, // مثال: https://e-commerce-9c449.web.app
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+// Static files
+app.use(express.static('public'));
+
+// API routes
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
+
+// Preflight requests for all routes
+app.options('*', cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
     console.log('Client URL:', process.env.CLIENT_URL);
 });
