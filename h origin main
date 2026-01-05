@@ -1,0 +1,90 @@
+[33mcommit 53f6f6cc98129e74b3510c3cea2954ffc082004c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Merge: a5c7bad 40bb943
+Author: mahmood aqaad <mahmoodaqaad@gmail.com>
+Date:   Tue Dec 30 14:49:37 2025 +0200
+
+    Keep local .env and resolve conflict
+
+[33mcommit a5c7badbafa6db662095db4edb30627d028f754f[m
+Author: mahmood aqaad <mahmoodaqaad@gmail.com>
+Date:   Tue Dec 30 14:46:03 2025 +0200
+
+    fix bug
+
+[33mcommit 40bb943ba7815d0e046f34560b7d964d27ca2794[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: mahmoodaqaad <137782835+mahmoodaqaad@users.noreply.github.com>
+Date:   Wed Jan 8 18:02:45 2025 +0200
+
+    Delete .env
+
+[33mcommit c52c40917e1b2a4ff5e30a2faa6d919aeb5ccad1[m
+Author: mahmood aqaad <mahmoodaqaad@gmail.com>
+Date:   Wed Jan 8 18:01:31 2025 +0200
+
+    v1.1
+
+[33mcommit 889d0c118286bcdcf10d7129d2afbad577dfadaa[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sun Dec 1 18:14:26 2024 +0200
+
+    new
+
+[33mcommit 71284c6bf95f0bab3943815dac8ebc6414195054[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sun Dec 1 18:12:54 2024 +0200
+
+    xx
+
+[33mcommit 94bc02e9edda77325f94cec674822b4b89d7eae9[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sun Dec 1 13:20:59 2024 +0200
+
+    update index and auth
+
+[33mcommit 5061f655ef4ae9a3dc3db70c7287ec0160541c2e[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sun Dec 1 12:24:58 2024 +0200
+
+    Add or update .env file
+
+[33mcommit e4f9b98109eff3bfbbbc1f04bd6b41d887c0940c[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sun Dec 1 12:19:47 2024 +0200
+
+    Reinstall bcrypt and fix deployment issue
+
+[33mcommit 55f2512d9536e97f354fb29ca744ef2b564bce87[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sun Dec 1 11:26:15 2024 +0200
+
+    Reinstall bcrypt and fix deployment issue
+
+[33mcommit 2786afce9a3ba24faa30fc074837b04e60201bf1[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sat Nov 30 15:11:10 2024 +0200
+
+    new
+
+[33mcommit c1468f243965550f0c1d2700607e2feab256b4a2[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sat Nov 30 15:09:54 2024 +0200
+
+    new
+
+[33mcommit b282ca09520968b0e90a38f77fe371ac9e72f139[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Sat Nov 30 14:32:51 2024 +0200
+
+    تحديث الكود
+
+[33mcommit 438d850802b99f145c083bfdd21a7f48913ea630[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Fri Nov 29 13:40:47 2024 +0200
+
+    first commit
+
+[33mcommit 3401427ca1c62f824fb21768c99926550991a424[m
+Author: mahmood aqaad <(mahmmodaqaad)>
+Date:   Fri Nov 29 13:36:50 2024 +0200
+
+    first commit

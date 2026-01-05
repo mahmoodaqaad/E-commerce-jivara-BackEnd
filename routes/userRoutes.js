@@ -32,6 +32,7 @@ router.get("/users", userControllers.users);
 router.get("/user/:id", AuthControllers.verifyUser, userControllers.getUser);
 
 router.patch("/user/update/:id", AuthControllers.verifyUser, userControllers.updateUser); // إضافة مسار تعديل المستخدم
+router.put("/user/myUpdateUser/:id", AuthControllers.verifyUser, userControllers.myUpdateUser); // إضافة مسار تعديل المستخدم
 router.delete("/user/delete/:id", AuthControllers.verifyUser, userControllers.deleteUser); // إضافة مسار حذف المستخدم
 
 

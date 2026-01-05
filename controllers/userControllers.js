@@ -156,6 +156,63 @@ exports.updateUser = (req, res) => {
     });
 };
 
+exports.myUpdateUser = (req, res) => {
+    const { name, email } = req.body;
+    const userId = req.currentUserid; // Get user ID from the authenticated token
+
+    // Check for required fields
+    if (!name || !email) {
+        return res.status(400).json({ message: "Name and email are required" });
+    }
+
+    // Validate email format
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    // Ensure the user is trying to update their own profile
+    if (!userId) {
+        return res.status(403).json({ message: "Access denied. User ID not found in token." });
+    }
+
+    // Current user email check
+    const sqlCheckCurrentUser = "SELECT email FROM users WHERE id = ?";
+    db.query(sqlCheckCurrentUser, userId, (err, result) => {
+        if (err) return res.status(500).json({ message: "Error in server", error: err });
+        if (result.length === 0) {
+            return res.status(404).json({ message: "User not found." });
+        }
+        const currentEmail = result[0].email;
+
+        // If the email has changed, check for uniqueness
+        if (currentEmail !== email) {
+            const sqlCheckEmail = "SELECT * FROM users WHERE email = ? AND id != ?";
+            db.query(sqlCheckEmail, [email, userId], (errEmail, emailData) => {
+                if (errEmail) return res.status(500).json({ message: "Error in server", error: errEmail });
+
+                if (emailData.length > 0) {
+                    return res.status(400).json({ message: "Email already exists for another user", status: 205 });
+                }
+
+                // Update user if the new email is unused
+                const sqlUpdate = "UPDATE users SET name = ?, email = ? WHERE id = ?";
+                db.query(sqlUpdate, [name, email, userId], (errUpdate) => {
+                    if (errUpdate) return res.status(500).json({ message: "Error in server", error: errUpdate });
+                    return res.json({ message: "Profile updated successfully", status: 200 });
+                });
+            });
+        } else {
+            // Update user without changing email
+            const sqlUpdate = "UPDATE users SET name = ? WHERE id = ?";
+            db.query(sqlUpdate, [name, userId], (errUpdate) => {
+                if (errUpdate) return res.status(500).json({ message: "Error in server", error: errUpdate });
+                return res.json({ message: "Profile updated successfully", status: 200 });
+            });
+        }
+    });
+};
+
 // دالة لحذف المستخدم
 exports.deleteUser = (req, res) => {
 
