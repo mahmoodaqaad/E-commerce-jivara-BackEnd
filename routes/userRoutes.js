@@ -28,7 +28,7 @@ router.post("/CahngePass", AuthControllers.verifyUser, AuthControllers.CahngePas
 
 // user 
 router.post("/user/add", userControllers.adduser);
-router.get("/users", userControllers.users);
+router.get("/users", userControllers.verifyUser, userControllers.users);
 router.get("/user/:id", AuthControllers.verifyUser, userControllers.getUser);
 
 router.patch("/user/update/:id", AuthControllers.verifyUser, userControllers.updateUser); // إضافة مسار تعديل المستخدم
@@ -88,6 +88,7 @@ router.post("/category/add", categoryControllers.addCategory)
 router.post("/category/edit/:id", categoryControllers.getoneCategory, categoryControllers.upload.single("image"), categoryControllers.editCategory)
 
 router.get("/categories", categoryControllers.Categories)
+router.get("/category/name/:id", categoryControllers.getNameCaty)
 router.get("/category/:id", categoryControllers.getoneCategory, categoryControllers.category)
 
 

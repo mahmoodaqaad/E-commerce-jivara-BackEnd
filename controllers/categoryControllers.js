@@ -104,6 +104,21 @@ exports.getoneCategory = (req, res, next) => {
     })
 }
 
+exports.getNameCaty = (req, res) => {
+    const { id } = req.params;
+
+    const sql = "SELECT name FROM categories WHERE id = ?";
+    db.query(sql, [id], (err, data) => {
+        if (err) return res.status(500).json(err);
+
+        if (data.length > 0) {
+            return res.status(200).json({name: data[0].name });
+        }
+
+        return res.status(404).json({ message: "Category not found" });
+    });
+};
+
 exports.category = (req, res) => {
 
     res.json({ data: req.dataCate })
