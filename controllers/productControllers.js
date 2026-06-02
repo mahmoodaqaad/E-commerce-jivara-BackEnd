@@ -18,16 +18,11 @@ const storage = multer.diskStorage({
 
 
 
-exports.upload = multer({
-    storage: storage
-})
 
-const url = "https://e-commerce-jivara-backend-hl0c.onrender.com/image";
 
 exports.addProduct = (req, res) => {
 
 
-    // const images = req.files.map(file => `${url}/${file.filename}`)
     const images = req.body.images
 
     const { category, discrption, price, title, stok } = req.body.form
@@ -110,39 +105,7 @@ exports.products = (req, res) => {
 
 }
 
-exports.deleteProduct = (req, res) => {
-    const { id } = req.params
 
-
-    const getSql = "SELECT images FROM products WHERE id = ? "
-
-    db.query(getSql, [id], (err, data) => {
-        if (err) return res.json("err")
-        if (data.length > 0) {
-            const images = data.length > 0 ? JSON.parse(data[0].images) : []
-            const newImages = images.map(item => item.replace(`${url}/`, ""))
-            try {
-
-                newImages.map(item => {
-
-                    fs.unlinkSync(path.join(__dirname, '../public/image', item)); // حذف الصورة من المجلد
-
-                })
-            } catch (e) {
-            }
-
-            const sql = "DELETE FROM products WHERE id = ?"
-            db.query(sql, id, (err, data) => {
-                if (err) return res.status(400).json({ message: err });
-
-                res.status(200).json({ message: 'Product Delete  successfully' });
-            });
-        }
-    })
-
-
-
-}
 
 exports.getOneProduct = (req, res, next) => {
     const { id } = req.params
@@ -166,7 +129,17 @@ exports.product = (req, res) => {
     res.json({ data: req.dataProduct })
 }
 
+exports.getproductbyCategory = (req, res) => {
+    const { id } = req.params
 
+    const sql = "SELECT * FROM products WHERE category_id = ?"
+    db.query(sql, [id], (err, data) => {
+        if (err) return res.json(err)
+        if (data) {
+            res.json({ data })
+        }
+    })
+}
 
 exports.deleteImgProduct = (req, res) => {
     const { id } = req.params
@@ -392,3 +365,25 @@ exports.getTileProductSearch = (req, res) => {
 
     })
 };
+exports.deleteProduct = (req, res) => {
+    const { id } = req.params
+
+
+    const getSql = "SELECT images FROM products WHERE id = ? "
+
+    db.query(getSql, [id], (err, data) => {
+        if (err) return res.json("err")
+        if (data.length > 0) {
+
+            const sql = "DELETE FROM products WHERE id = ?"
+            db.query(sql, id, (err, data) => {
+                if (err) return res.status(400).json({ message: err });
+
+                res.status(200).json({ message: 'Product Delete  successfully' });
+            });
+        }
+    })
+
+
+
+}

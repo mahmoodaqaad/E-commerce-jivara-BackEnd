@@ -1,24 +1,7 @@
 
 const db = require('../config/db')
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const http = "https://e-commerce-jivara-backend-hl0c.onrender.com/category/"
 
-const storage = multer.diskStorage({
-    destination: (req, file, cd) => {
-        cd(null, "public/category")
-    }
-    ,
-    filename: (req, file, cd) => {
-        cd(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
 
-    }
-})
-
-exports.upload = multer({
-    storage: storage
-})
 
 exports.addCategory = (req, res) => {
 
@@ -128,12 +111,7 @@ exports.deleteCategory = (req, res) => {
     const { id } = req.params
 
     const image = req.dataCate[0].image
-    const imgFile = image.replace(http, "")
-    try {
 
-        fs.unlinkSync(path.join(__dirname, "../Public/category", imgFile))
-    } catch (e) {
-    }
 
     const sql = "DELETE FROM categories WHERE id = ?"
     db.query(sql, [id], (err, data) => {

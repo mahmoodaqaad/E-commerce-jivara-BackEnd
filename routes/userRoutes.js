@@ -48,11 +48,12 @@ router.get("/savedPrdouct", AuthControllers.verifyUser, userControllers.SavedPro
 
 // product
 router.get('/product/topRated', productControllers.getTopRatedProducts)
+router.get('/product/getproductbyCaty/:id', productControllers.getproductbyCategory)
+
 router.get('/product/latest', productControllers.getLatestProducts)
 router.get('/searchProduct', productControllers.getTileProductSearch)
 
 // add 
-// router.post('/product/add', productControllers.upload.array('images', 10), productControllers.addProduct)
 router.post('/product/add', productControllers.addProduct)
 // edit 
 router.post('/product/edit/:id', productControllers.getOneProduct, productControllers.EditProduct)
@@ -82,10 +83,9 @@ router.post('/product/add-rate/:id', productControllers.getOneProduct, productCo
 
 // catygory
 
-// router.post("/category/add", categoryControllers.upload.single("image"), categoryControllers.addCategory)
 router.post("/category/add", categoryControllers.addCategory)
 
-router.post("/category/edit/:id", categoryControllers.getoneCategory, categoryControllers.upload.single("image"), categoryControllers.editCategory)
+router.post("/category/edit/:id", categoryControllers.getoneCategory, categoryControllers.editCategory)
 
 router.get("/categories", categoryControllers.Categories)
 router.get("/category/name/:id", categoryControllers.getNameCaty)
