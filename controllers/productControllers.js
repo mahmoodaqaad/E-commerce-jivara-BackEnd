@@ -195,25 +195,22 @@ exports.deleteImgProduct = (req, res) => {
 }
 
 exports.EditProduct = (req, res) => {
-
     const { id } = req.params
-    const { category, discrption, price, title, stok } = JSON?.parse(req.body.form)
-
+    const { category, discrption, price, title, stok } = req.body.form
+  
     const cateSql = "SELECT name FROM categories WHERE id = ?"
 
     db.query(cateSql, category, (err, data) => {
         if (err) return res.status(400).json(err)
 
-        if (data) {
-
-            const category_name = data[0].name
-            if (req.files.length > 0) {
-
-                const newImages = req.files.map(file => `${url}/${file.filename}`);
-                const oldImage = JSON.parse(req.dataProduct[0].images)
-
-                const updateImage = [...oldImage, ...newImages]
-
+            if (data) {
+                
+                const category_name = data[0].name
+                if (req.body.images.length > 0) {
+                    const newImages = req.body.images;
+                    const oldImage = JSON.parse(req.dataProduct[0].images)
+                    
+                    const updateImage = [...oldImage, ...newImages]
 
 
 

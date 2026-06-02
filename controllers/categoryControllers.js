@@ -22,7 +22,6 @@ exports.upload = multer({
 
 exports.addCategory = (req, res) => {
 
-    // const image = `${http}${req.file.filename}`
     const image = req.body.image
     const { name } = req.body
     const created = new Date().toLocaleString("en-US", {
@@ -153,22 +152,14 @@ exports.deleteCategory = (req, res) => {
 exports.editCategory = (req, res) => {
     const { id } = req.params
 
-    const { name } = req.body
-    if (req.file) {
-        const newimage = `${http}${req.file.filename}`
-        console.log(newimage);
+    const { name, image } = req.body
+    if (req.body.image!=="") {
 
-        const oldimage = req.dataCate[0].image
-        const imgFile = oldimage.replace(http, "")
-        try {
 
-            fs.unlinkSync(path.join(__dirname, '../public/category', imgFile))
-        } catch (e) {
-        }
 
 
         const updateSql = "UPDATE categories SET name =? ,image=? WHERE id = ?"
-        db.query(updateSql, [name, newimage, id], (err, result) => {
+        db.query(updateSql, [name, image, id], (err, result) => {
 
             if (err) res.json(err)
 

@@ -55,7 +55,7 @@ router.get('/searchProduct', productControllers.getTileProductSearch)
 // router.post('/product/add', productControllers.upload.array('images', 10), productControllers.addProduct)
 router.post('/product/add', productControllers.addProduct)
 // edit 
-router.post('/product/edit/:id', productControllers.upload.array('images', 10), productControllers.getOneProduct, productControllers.EditProduct)
+router.post('/product/edit/:id', productControllers.getOneProduct, productControllers.EditProduct)
 // get all 
 router.get('/products', productControllers.products)
 // delete product 
